@@ -146,6 +146,7 @@ def histdata():
     
     # Access hourly data
     hourly = response.Hourly()
+
     temp = hourly.Variables(0).ValuesAsNumpy()   # temperature_2m
     precip = hourly.Variables(1).ValuesAsNumpy() # precipitation
 
