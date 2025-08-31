@@ -164,6 +164,11 @@ export default {
 		  900: '#07152c',
 	      },
 	  },
+	  fontSize: {
+	      'top1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'top2': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'icon1': ['60pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	  },
       },
       plugins: [],
   }

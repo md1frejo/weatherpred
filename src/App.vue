@@ -1,22 +1,27 @@
 <script setup>
+
  import Topbar from './components/Topbar.vue'
+ import Main from './components/Main.vue'
+ import Center from './components/Center.vue'
+ import Bottom from './components/Bottom.vue'
  
 </script>
 
 <template>
 
-  <div class="bg-headlinecard-300 text-white p-4">
-    Tailwind is working!
+  <Topbar />
+  <Main />
+
+  <div class="min-h-screen flex flex-col">
+    <!-- Top row: Center (100% width) -->
+    <div class="w-full bg-gray-200 p-4">
+      <Center />
+    </div>
   </div>
 
-  
-  <h1 class="text-headlinecard-900">You did it!</h1>
-  <p class="text-blue-100 text-4xl">tailwind?</p>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
-  <Topbar />
 </template>
 
-<style scoped></style>
+<style scoped>
+ 
+</style>
+
