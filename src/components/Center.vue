@@ -1,12 +1,32 @@
-<!-- Center.vue -->
 <script setup>
  import Left from './Left.vue'
  import Graph from './Graph.vue'
  import citiesa from '../../cities.json'
+ import wdata from '../../wstats.json'
  import { ref } from 'vue'
 
+ // list of city names
  const cities = ref(citiesa)
- const selectedCity = ref(null) // Left will update this
+
+ // helper to downsample to daily
+ function downsampleDaily(values) {
+   const daily = []
+   for (let i = 0; i < values.length; i += 24) {
+     const day = values.slice(i, i + 24)
+     const avg = day.reduce((a, b) => a + b, 0) / day.length
+     daily.push(avg)
+   }
+   return daily
+ }
+
+ // 👇 initialize with first city
+ const firstCity = cities.value[0]
+ const cityData = wdata[firstCity]
+ const selectedCity = ref({
+   city: firstCity,
+   temp: downsampleDaily(cityData.temp),
+   precip: downsampleDaily(cityData.precip)
+ })
 </script>
 
 <template>
@@ -20,7 +40,12 @@
 
     <!-- Graph column -->
     <div class="w-[85%] bg-white p-4">
-      <Graph :city="selectedCity" />
+      <Graph
+        v-if="selectedCity"
+        :city="selectedCity.city"
+        :temp="selectedCity.temp"
+        :precip="selectedCity.precip"
+      />
     </div>
   </div>
 </template>

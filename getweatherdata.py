@@ -5,6 +5,7 @@ import requests_cache
 
 from retry_requests import retry
 from pdb import set_trace as B
+from time import sleep
 
 def test():
     
@@ -76,6 +77,9 @@ def getCityd():
 
 def histdata():
 
+
+    wstats={}
+    
     cities = [
         {"city": "Tokyo", "country": "Japan", "lat": 35.6828, "lon": 139.7595, "population_millions": 37.04},
         {"city": "Delhi", "country": "India", "lat": 28.6139, "lon": 77.2090, "population_millions": 34.67},
@@ -102,8 +106,63 @@ def histdata():
         {"city": "Rio de Janeiro", "country": "Brazil", "lat": -22.9068, "lon": -43.1729, "population_millions": 13.92},
         {"city": "Shenzhen", "country": "China", "lat": 22.5431, "lon": 114.0579, "population_millions": 13.55},
     ]
+
+    # save cities
+    ct=[l['city'] for l in cities]
     
-    cities2 = [
+    with open("cities.json","w") as f:
+        js.dump(ct,f)
+    
+    # Initialize client
+    client = openmeteo_requests.Client()
+
+    # Correct archive endpoint
+    url = "https://archive-api.open-meteo.com/v1/archive"
+
+    i=1
+    for l in cities:
+
+        city=l['city']
+        wstats[city]={'temp':[],'precip':[]}
+        
+        params = {
+            "latitude": l['lat'],      
+            "longitude": l['lon'],
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "hourly": ["temperature_2m", "precipitation"]
+       #     "daily": ["temperature_2m_max", "temperature_2m_min", "precipitation_sum"],
+        #    "timezone": "auto"
+        }
+    
+        # Fetch data
+        responses = client.weather_api(url, params=params)
+        response = responses[0]
+    
+        # Access hourly data
+        hourly = response.Hourly()
+
+        temp = hourly.Variables(0).ValuesAsNumpy()   # temperature_2m
+        temp=temp.tolist()
+        precip = hourly.Variables(1).ValuesAsNumpy() # precipitation
+        precip=precip.tolist()
+        
+        wstats[city]['temp']=temp
+        wstats[city]['precip']=precip
+        
+        print("city:",i," ",city)
+        i+=1
+        if i==20:
+            sleep(60)
+        
+    with open("wstats.json","w") as f:
+        js.dump(wstats,f)
+
+    return wstats
+        
+def store():
+
+        cities2 = [
         {"city": "Tokyo", "country": "Japan", "lat": 35.6828, "lon": 139.7595},
         {"city": "Delhi", "country": "India", "lat": 28.6139, "lon": 77.2090},
         {"city": "Shanghai", "country": "China", "lat": 31.2304, "lon": 121.4737},
@@ -115,46 +174,14 @@ def histdata():
         {"city": "Mumbai", "country": "India", "lat": 19.0760, "lon": 72.8777},
         {"city": "Osaka", "country": "Japan", "lat": 34.6937, "lon": 135.5023}]
     
-    cities3 ={'Tokyo':['Japan',35.6828,139.7595],
-            'Dehli':['India',28.6139,77.2090],
-            'Shanghai':['China',31.2304,121.4737],
-            'São Paulo':['Brazil',-23.5505,-46.6333],
-            'Mexico City':['Mexico',19.4326,-99.1332],
-            'Cairo':['Egypt',30.0444,31.2357],
-	    'Dhaka':['Bangladesh',23.8103,90.4125],
-            'Beijing':['China',39.9042,116.4074],
-            'Mumbai':['India',19.0760,72.8777],
-	    'Osaka':['Japan',34.6937,135.5023]}
-    
-    # Initialize client
-    client = openmeteo_requests.Client()
-
-    # Correct archive endpoint
-    url = "https://archive-api.open-meteo.com/v1/archive"
-
-    params = {
-        "latitude": 59.3293,         # Example: Stockholm
-        "longitude": 18.0686,
-        "start_date": "1940-01-01",
-        "end_date": "1940-01-07",
-        "hourly": ["temperature_2m", "precipitation"]
-    }
-    
-    # Fetch data
-    responses = client.weather_api(url, params=params)
-    response = responses[0]
-    
-    # Access hourly data
-    hourly = response.Hourly()
-
-    temp = hourly.Variables(0).ValuesAsNumpy()   # temperature_2m
-    precip = hourly.Variables(1).ValuesAsNumpy() # precipitation
-
-    print("First 10 temperatures:", temp[:100])
-    print("First 10 precip values:", precip[:100])
-
-    ct=[l['city'] for l in cities]
-    
-    with open("cities.json","w") as f:
-        js.dump(ct,f)
+        cities3 ={'Tokyo':['Japan',35.6828,139.7595],
+                  'Dehli':['India',28.6139,77.2090],
+                  'Shanghai':['China',31.2304,121.4737],
+                  'São Paulo':['Brazil',-23.5505,-46.6333],
+                  'Mexico City':['Mexico',19.4326,-99.1332],
+                  'Cairo':['Egypt',30.0444,31.2357],
+	          'Dhaka':['Bangladesh',23.8103,90.4125],
+                  'Beijing':['China',39.9042,116.4074],
+                  'Mumbai':['India',19.0760,72.8777],
+                  'Osaka':['Japan',34.6937,135.5023]}
         

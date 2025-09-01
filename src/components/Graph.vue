@@ -1,5 +1,7 @@
 <script setup>
 
+ import { computed } from 'vue' 
+ 
  import {
    Chart as ChartJS,
    Title,
@@ -8,12 +10,12 @@
    LineElement,
    CategoryScale,
    LinearScale,
-   PointElement
+   PointElement,
+   Filler
  } from 'chart.js'
 
  import { Line } from 'vue-chartjs'
 
- // Register Chart.js components
  ChartJS.register(
    Title,
    Tooltip,
@@ -21,58 +23,81 @@
    LineElement,
    CategoryScale,
    LinearScale,
-   PointElement
+   PointElement,
+   Filler // 👈 don’t forget this
  )
 
- // Example rainfall data (daily)
- const labels = [
-   '2025-08-21',
-   '2025-08-22',
-   '2025-08-23',
-   '2025-08-24',
-   '2025-08-25',
-   '2025-08-26',
-   '2025-08-27'
- ]
-
- const data = {
-   labels,
-   datasets: [
-     {
-       label: 'Daily Rainfall (mm)',
-       data: [2, 15, 5, 20, 7, 12, 0], // Example values
-       borderColor: 'rgba(54, 162, 235, 1)',
-       backgroundColor: 'rgba(54, 162, 235, 0.2)',
-       tension: 0.3, // smooth curve
-       fill: true
-     }
-   ]
+ function generateDates(startDate, days) {
+   const dates = []
+   let current = new Date(startDate)
+   for (let i = 0; i < days; i++) {
+     dates.push(current.toISOString().slice(0, 10)) // YYYY-MM-DD
+     current.setDate(current.getDate() + 1)
+   }
+   return dates
  }
+
+ const data = computed(() => {
+   const labels = generateDates("2020-01-01", props.temp.length)
+
+  return {
+    labels,
+    datasets: [
+      {
+        label: `Temperature in ${props.city}`,
+        data: props.temp,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        tension: 0.3,
+        yAxisID: 'y'
+      },
+      {
+        label: `Precipitation in ${props.city}`,
+        data: props.precip,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        tension: 0.3,
+        fill: true,
+        yAxisID: 'y1'
+      }
+    ]
+  }
+ })
+ 
+ const props = defineProps({
+   city: {
+     type: String,
+     required: true
+   },
+   temp: {
+     type: Array,
+     required: true
+   },
+   precip: {
+     type: Array,
+     required: true
+   }
+ })
+
+ // Build chart data reactively
 
  const options = {
    responsive: true,
    plugins: {
-     legend: {
-       position: 'top'
-     },
-     title: {
-       display: true,
-       text: 'Daily Rainfall Over Time'
-     }
+     legend: { position: 'top' },
+     title: { display: true, text: 'Weather Data' }
    },
    scales: {
-     x: {
-       title: {
-         display: true,
-         text: 'Date'
-       }
-     },
      y: {
-       title: {
-         display: true,
-         text: 'Rainfall (mm)'
-       },
-       beginAtZero: true
+       type: 'linear',
+       position: 'left',
+       title: { display: true, text: 'Temperature (°C)' }
+     },
+     y1: {
+       type: 'linear',
+       position: 'right',
+       title: { display: true, text: 'Precipitation (mm)' },
+       grid: { drawOnChartArea: false }
      }
    }
  }
