@@ -27,15 +27,16 @@
    Filler // 👈 don’t forget this
  )
 
- function generateDates(startDate, days) {
+ function generateDates(startDate,days) {
    const dates = []
+
    let current = new Date(startDate)
    for (let i = 0; i < days; i++) {
      dates.push(current.toISOString().slice(0, 10)) // YYYY-MM-DD
      current.setDate(current.getDate() + 1)
    }
    return dates
- }
+ } 
 
  const data = computed(() => {
    const labels = generateDates("2020-01-01", props.temp.length)
@@ -85,7 +86,7 @@
    responsive: true,
    plugins: {
      legend: { position: 'top' },
-     title: { display: true, text: 'Weather Data' }
+     title: { display: true, text: `Weather Data in ${props.city} from 2020-01-01`}
    },
    scales: {
      y: {
@@ -105,6 +106,7 @@
 
 <template>
   <div class="p-4">
+    <p class="text-gp1">temperature and rain in {{props.city}}</p>
     <Line :data="data" :options="options" />
   </div>
 </template>

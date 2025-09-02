@@ -1,4 +1,5 @@
 <script setup>
+    
  import Left from './Left.vue'
  import Graph from './Graph.vue'
  import citiesa from '../../cities.json'
@@ -6,10 +7,10 @@
  import { ref } from 'vue'
 
  // list of city names
- const cities = ref(citiesa)
+const cities = ref(citiesa)
 
- // helper to downsample to daily
- function downsampleDaily(values) {
+// helper to downsample to daily
+function downsampleDaily(values) {
    const daily = []
    for (let i = 0; i < values.length; i += 24) {
      const day = values.slice(i, i + 24)
@@ -19,33 +20,39 @@
    return daily
  }
 
- // 👇 initialize with first city
- const firstCity = cities.value[0]
- const cityData = wdata[firstCity]
- const selectedCity = ref({
-   city: firstCity,
-   temp: downsampleDaily(cityData.temp),
-   precip: downsampleDaily(cityData.precip)
- })
+const firstCity = cities.value[0]
+const cityData = wdata[firstCity]
+
+const selectedCity = ref({
+    city: firstCity,
+    temp: downsampleDaily(cityData.temp),
+    precip: downsampleDaily(cityData.precip)
+})
+
 </script>
 
 <template>
-  <p class="text-4xl mb-4">center</p>
 
+  <div class="p-8 bg-GhostWhiteg-100">
+    <div class="bg-gradient-to-b from-antiquewhiteg-900 to-antiquewhiteg-400 via-slateblueg-1500 p-6 rounded-2xl text-center space-x-4">
+      <p class="text-4xl">prediction: does it gonna rain in ..?</p>
+    </div>  
   <div class="flex flex-1">
     <!-- Left column -->
-    <div class="w-[15%] bg-gray-100 p-4">
+    <div class="w-[15%] bg-antiquewhiteg-800 p-4">
       <Left :cities="cities" v-model:selectedCity="selectedCity" />
     </div>
-
+    
     <!-- Graph column -->
-    <div class="w-[85%] bg-white p-4">
+    <div class="w-[85%] bg-antiquewhiteg-900 p-4">
       <Graph
         v-if="selectedCity"
         :city="selectedCity.city"
         :temp="selectedCity.temp"
         :precip="selectedCity.precip"
-      />
+	/>
     </div>
-  </div>
+    </div>
+</div>
+
 </template>

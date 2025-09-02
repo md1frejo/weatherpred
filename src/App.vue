@@ -14,7 +14,7 @@
 
   <div class="min-h-screen flex flex-col">
     <!-- Top row: Center (100% width) -->
-    <div class="w-full bg-gray-200 p-4">
+    <div class="w-full bg-gray-200">
       <Center />
     </div>
   </div>

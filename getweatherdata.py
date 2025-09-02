@@ -105,7 +105,12 @@ def histdata():
         {"city": "Bangalore", "country": "India", "lat": 12.9716, "lon": 77.5946, "population_millions": 14.40},
         {"city": "Rio de Janeiro", "country": "Brazil", "lat": -22.9068, "lon": -43.1729, "population_millions": 13.92},
         {"city": "Shenzhen", "country": "China", "lat": 22.5431, "lon": 114.0579, "population_millions": 13.55},
-    ]
+        {"city": "Paris", "country": "France", "lat": 48.8566, "lon": 2.3522, "population_millions": 11.3},
+        {"city": "Jakarta", "country": "Indonesia", "lat": -6.2088, "lon": 106.8456, "population_millions": 11.0},
+        {"city": "London", "country": "United Kingdom", "lat": 51.5072, "lon": -0.1276, "population_millions": 10.9},
+        {"city": "Lima", "country": "Peru", "lat": -12.0464, "lon": -77.0428, "population_millions": 10.7},
+        {"city": "Bangkok", "country": "Thailand", "lat": 13.7563, "lon": 100.5018, "population_millions": 10.5},
+        {"city": "Hyderabad", "country": "India", "lat": 17.3850, "lon": 78.4867, "population_millions": 10.4},]
 
     # save cities
     ct=[l['city'] for l in cities]
