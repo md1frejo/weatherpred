@@ -86,7 +86,7 @@
    responsive: true,
    plugins: {
      legend: { position: 'top' },
-     title: { display: true, text: `Weather Data in ${props.city} from 2020-01-01`}
+     title: { display: true, text: 'from 2020-01-01 to 2025-01-01' }
    },
    scales: {
      y: {
@@ -102,6 +102,7 @@
      }
    }
  }
+ 
 </script>
 
 <template>

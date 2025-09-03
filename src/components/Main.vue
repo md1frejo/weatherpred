@@ -1,16 +1,20 @@
 <script>
 
+ import { ArrowLeftFromLine,ArrowRightFromLine,ListEnd } from 'lucide-vue-next'
  import {hello} from '@/utils/misc.js'
 
- hello()
- 
 </script>
 
 <template>
 
   <div class="p-8">
-    <div class="bg-gradient-to-b from-SteelBlueg-1200 to-SteelBlueg-1200 via-antiquewhiteg-400 p-6 rounded-2xl text-center space-x-4">
-      <p class="text-4xl">weather data from 20 of the largest cities in the world</p>
+    <div class="bg-gradient-to-b from-lightblueg-900 to-lightblueg-1100p-6 rounded-2xl text-center space-x-4">
+      <div class="flex items-center space-x-4">
+	<ArrowLeftFromLine class="w-10 h-10 text-deepskyblue-200" />
+	<p class="text-ma1 font-roboto">weather data from 30 of the largest cities in the world</p>
+	<ArrowRightFromLine class="w-20 h-20 text-deepskyblue-200" />
+	<ArrowLeftFromLine class="w-20 h-20 text-red-400" />
+      </div>
     </div>
   </div>
 </template>

@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
       extend: {
+	  fontFamily: {
+              kode: ["'Kode Mono'", "monospace"], 
+	      caveat: ["Caveat", "cursive"],
+	      roboto: ["'Roboto'", "sans-serif"],  // clean UI fallback
+	  },
+	  fontWeight: {
+	      extra: 200,
+	      semibold: 600,
+	      heavy: 100,
+	  },
 	  colors: {
 	      blackgrad: {
 		  100: "#000000",
@@ -194,6 +204,7 @@ export default {
 	      },
 	  },
 	  fontSize: {
+	      'ma1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'gp1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top2': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],

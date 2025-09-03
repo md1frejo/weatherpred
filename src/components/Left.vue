@@ -1,19 +1,19 @@
 <script setup>
  import wdata from '../../wstats.json'
-
+ import { ListEnd,ArrowDownWideNarrow } from "lucide-vue-next"
+ 
  const props = defineProps({
    cities: Array,
    selectedCity: String
  })
 
- // 👇 add this
  const emit = defineEmits(['update:selectedCity'])
 
  function selectCity(city) {
-   const cityData = wdata[city]
+   const cityData=wdata[city]
 
-   const tempDaily = downsampleDaily(cityData.temp)
-   const precipDaily = downsampleDaily(cityData.precip)
+   const tempDaily=downsampleDaily(cityData.temp)
+   const precipDaily=downsampleDaily(cityData.precip)
 
    emit('update:selectedCity', {
      city,
@@ -34,14 +34,18 @@
 </script>
 
 <template>
-  <p class="text-2xl mb-2">Cities</p>
+  <div class="flex items-center space-x-4">
+    <p class="text-2xl mb-2">Cities</p>
+    <ArrowDownWideNarrow class="w-10 h-10 text-deepskyblue-200" />
+    <br>
+  <br>
+  </div>
   <ul>
     <li 
       v-for="(city, idx) in props.cities" 
       :key="idx" 
       @click="selectCity(city)" 
-      class="cursor-pointer hover:text-blue-500"
-    >
+      class="cursor-pointer hover:text-blue-500">
       {{ city }}
     </li>
   </ul>
