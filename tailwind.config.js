@@ -12,9 +12,15 @@ export default {
 	      roboto: ["'Roboto'", "sans-serif"],  // clean UI fallback
 	  },
 	  fontWeight: {
-	      extra: 200,
+	      thin: 100,
+	      extraLight: 200,
+	      light: 300,
+	      normal: 400,
+	      medium: 500,
 	      semibold: 600,
-	      heavy: 100,
+	      bold: 700,
+	      extrabold: 800,
+	      black: 900,
 	  },
 	  colors: {
 	      blackgrad: {
@@ -204,7 +210,8 @@ export default {
 	      },
 	  },
 	  fontSize: {
-	      'ma1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'c1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma1': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'gp1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top2': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],

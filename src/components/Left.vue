@@ -1,6 +1,6 @@
 <script setup>
  import wdata from '../../wstats.json'
- import { ListEnd,ArrowDownWideNarrow } from "lucide-vue-next"
+ import { ListEnd,ArrowDownWideNarrow,MoveDown } from "lucide-vue-next"
  
  const props = defineProps({
    cities: Array,
@@ -36,7 +36,7 @@
 <template>
   <div class="flex items-center space-x-4">
     <p class="text-2xl mb-2">Cities</p>
-    <ArrowDownWideNarrow class="w-10 h-10 text-deepskyblue-200" />
+    <MoveDown class="w-10 h-7 text-deepskyblue-200" />
     <br>
   <br>
   </div>
