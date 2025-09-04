@@ -100,9 +100,9 @@
 	<div class="bg-gradient-to-b from-deepskyblue-800 to-deepskyblue-1100 p-6 rounded-2xl text-center space-x-4">
 	  <div class="flex items-center space-x-4">
 	    <Telescope class="w-10 h-10 text-navajoWhite4g-200" />
-	    <p class="text-c1 font-roboto">is it any correlation in <span class="text-slateblueg-100 font-roboto"> {{ randc }} </span> between temperature and precipation?
+	    <p class="text-c1 font-roboto">is it any correlation in <span class="text-slateblueg-100 font-roboto"> {{ selectedCity.city }} </span> between temperature and precipation?
 	    </p>
-	    <p class="text-c1 font-roboto">pearson prediction <span class="text-slateblueg-100 font-roboto"> {{ pearson(randc) }} </span> gives {{pearson(randc)>0.8?"correlation":"no correlation"}}</p>
+	    <p class="text-c1 font-roboto">pearson prediction of <span class="text-red4g-100 font-roboto"> {{ pearson(selectedCity.city) }} </span> gives <span class="text-slateblueg-100 font-roboto"> {{pearson(selectedCity.city)>0.8?"correlation":"no correlation"}} </span></p>
 	  </div>
 	</div>  
       </div>
